@@ -3,6 +3,8 @@ const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
+const controllers = require("./controllers");
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -19,7 +21,7 @@ app.use(cors({
 }));
 app.options('*', cors());
 
-require("./controllers")(app);
+controllers(app);
 
 app.listen(process.env.PORT || 3000, () =>
     console.log("Server is running @3000 ...")
