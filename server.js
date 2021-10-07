@@ -49,7 +49,7 @@ app.use(function (err, req, res, next) {
     });
 });
 
-app.get("/", function (err, req, res){
+app.get("/", function (req, res){
   res.status(500);
   res.render('error', {
         version: "1.0",
