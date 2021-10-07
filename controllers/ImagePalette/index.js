@@ -1,5 +1,7 @@
-const palette = require('image-palette')
-const pixels = require('image-pixels')
+const palette = require('image-palette');
+const pixels = require('image-pixels');
+
+const { Result } =  require("../../Models");
 
 module.exports = function(req, res){
     const { image } = req.query;
@@ -8,20 +10,11 @@ module.exports = function(req, res){
         try{
             const {ids, colors} = palette(r);
 
-            res.json({
-                version: "1.0",
-                code: 1,
-                result: colors.map(r => "rgb(" + r.slice(0, 3).join(", ") + ")"),
-                description: ""
-            });
+            res.json(new Result(colors.map(r => "rgb(" + r.slice(0, 3).join(", ") + ")")));
         }catch(e){
             return Promise.reject();
         }
     }).catch((e)=>{
-        res.json({
-            version: "1.0",
-            code: 0,
-            description: "Algo deu errado!"
-        });
+        res.json(new Result(null, "Algo deu errado!", -1));
     });
 }

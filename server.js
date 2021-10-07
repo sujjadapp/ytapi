@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 
 const controllers = require("./controllers");
 
+const { Result } =  require("./Models");
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -24,11 +26,7 @@ app.options('*', cors());
 controllers(app);
 
 app.get("/*", function(req, res){
-  res.json({
-        version: "1.0",
-        code: -1,
-        description: "Convocação inválida!"
-    });
+  res.json(new Result(null, "Convocação inválida!", -1));
 });
 
 app.listen(process.env.PORT || 3000, () =>
