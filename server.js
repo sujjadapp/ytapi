@@ -23,10 +23,24 @@ app.options('*', cors());
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.json({
+  next(err);
+});
+
+app.use(function (err, req, res, next) {
+  if (req.xhr) {
+    res.status(500).send({ error: 'Something failed!' });
+  } else {
+    next(err);
+  }
+});
+
+app.use(function (err, req, res, next) {
+  res.status(500);
+  res.render('error', {
         version: "1.0",
         code: -1,
-        description: "Convocação inválida!"
+        description: "Convocação inválida!",
+        error: err
     });
 });
 
