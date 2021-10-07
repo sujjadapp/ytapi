@@ -21,15 +21,15 @@ app.use(cors({
 }));
 app.options('*', cors());
 
-app.get("/", function(req, res){
+controllers(app);
+
+app.get("/*", function(req, res){
   res.json({
         version: "1.0",
         code: -1,
         description: "Convocação inválida!"
     });
 });
-
-controllers(app);
 
 app.listen(process.env.PORT || 3000, () =>
     console.log("Server is running @3000 ...")
