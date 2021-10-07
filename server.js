@@ -21,44 +21,15 @@ app.use(cors({
 }));
 app.options('*', cors());
 
-app.get("/", function (req, res){
+app.get("/", function(req, res){
   res.json({
         version: "1.0",
         code: -1,
-        description: "Convocação inválida!",
-        error: err
+        description: "Convocação inválida!"
     });
 });
 
 controllers(app);
-
-app.use(function(err, req, res, next) {
-  console.error(err.stack);
-  next(err);
-});
-
-app.use(function (err, req, res, next) {
-  if (req.xhr) {
-    res.status(500).send({ 
-        version: "1.0",
-        code: -1,
-        description: "Convocação inválida!",
-        error: 'Something failed!' 
-    });
-  } else {
-    next(err);
-  }
-});
-
-app.use(function (err, req, res, next) {
-  res.status(500);
-  res.render('error', {
-        version: "1.0",
-        code: -1,
-        description: "Convocação inválida!",
-        error: err
-    });
-});
 
 app.listen(process.env.PORT || 3000, () =>
     console.log("Server is running @3000 ...")
