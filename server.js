@@ -21,6 +21,15 @@ app.use(cors({
 }));
 app.options('*', cors());
 
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).json({
+        version: "1.0",
+        code: -1,
+        description: "Convocação inválida!"
+    });
+});
+
 controllers(app);
 
 app.listen(process.env.PORT || 3000, () =>
