@@ -14,5 +14,6 @@ module.exports = class Result {
     });
     this.stackTrace = stackTrace;
     this.dice = dice;
+    this.requisitionDate = new Date().toISOString();
   }
 }
