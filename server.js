@@ -28,13 +28,28 @@ app.use(function(err, req, res, next) {
 
 app.use(function (err, req, res, next) {
   if (req.xhr) {
-    res.status(500).send({ error: 'Something failed!' });
+    res.status(500).send({ 
+        version: "1.0",
+        code: -1,
+        description: "Convocação inválida!",
+        error: 'Something failed!' 
+    });
   } else {
     next(err);
   }
 });
 
 app.use(function (err, req, res, next) {
+  res.status(500);
+  res.render('error', {
+        version: "1.0",
+        code: -1,
+        description: "Convocação inválida!",
+        error: err
+    });
+});
+
+app.get("/", function (err, req, res){
   res.status(500);
   res.render('error', {
         version: "1.0",
