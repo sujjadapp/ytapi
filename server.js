@@ -21,6 +21,17 @@ app.use(cors({
 }));
 app.options('*', cors());
 
+app.get("/", function (req, res){
+  res.json({
+        version: "1.0",
+        code: -1,
+        description: "Convocação inválida!",
+        error: err
+    });
+});
+
+controllers(app);
+
 app.use(function(err, req, res, next) {
   console.error(err.stack);
   next(err);
@@ -48,18 +59,6 @@ app.use(function (err, req, res, next) {
         error: err
     });
 });
-
-app.get("/", function (req, res){
-  res.status(500);
-  res.json({
-        version: "1.0",
-        code: -1,
-        description: "Convocação inválida!",
-        error: err
-    });
-});
-
-controllers(app);
 
 app.listen(process.env.PORT || 3000, () =>
     console.log("Server is running @3000 ...")
