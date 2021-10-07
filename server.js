@@ -23,7 +23,7 @@ app.options('*', cors());
 
 app.use(function(err, req, res, next) {
   console.error(err.stack);
-  res.status(500).json({
+  res.json({
         version: "1.0",
         code: -1,
         description: "Convocação inválida!"
