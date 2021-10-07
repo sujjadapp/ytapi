@@ -51,7 +51,7 @@ app.use(function (err, req, res, next) {
 
 app.get("/", function (req, res){
   res.status(500);
-  res.render('error', {
+  res.json({
         version: "1.0",
         code: -1,
         description: "Convocação inválida!",
