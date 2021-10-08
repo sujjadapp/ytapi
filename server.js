@@ -29,6 +29,8 @@ app.get("/*", function(req, res){
   res.json(new Result(null, "Convocação inválida!", -1));
 });
 
-app.listen(process.env.PORT || 3000, () =>
-    console.log("Server is running @3000 ...")
-);
+const port = process.env.PORT || 3000;
+
+app.listen(port, ()=>{
+    console.log(`Server is running http://localhost:${port}`);
+});

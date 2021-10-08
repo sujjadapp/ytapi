@@ -1,22 +1,35 @@
 const { Result } =  require("../../Models");
 
-const Streaming = require("./Streaming");
+const ytdl = require('ytdl-core');
 
-//http://cangaceirojavascript.com.br/streaming-audio-node/
-
-//https://stackoverflow.com/questions/23330493/node-js-stream-mp3-to-http-without-having-to-save-file
-var ytdl = require('ytdl');
-var ffmpeg = require('fluent-ffmpeg');
-
-module.exports = function(req, res){
+module.exports = async (req, res)=>{
     try{
-        const { id } = req.query;
+        const { media_id } = req.query;
 
-        var url = 'https://music.youtube.com/watch?v='+id;
+        let url = 'https://music.youtube.com/watch?v='+media_id;
 
-        res.set({ "Content-Type": "audio/mpeg" });
-        ffmpeg().input(ytdl(url)).toFormat('mp3').pipe(res);
+        if(ytdl.validateURL(url)){
+            const info = await ytdl.getBasicInfo(url);
+
+            let videoReadableStream = ytdl(url, { filter: 'audioonly', quality: [18, 134, 140] });
+
+            videoReadableStream.on("response", response => {
+                for(let k in response.headers){
+                    res.setHeader(k, response.headers[k]);
+                }
+            });
+
+            const stream = videoReadableStream.pipe(res);
+
+            stream.on('finish', ()=>{
+                res.end();
+            });
+        }else{
+            throw new Error("oops");
+        }
     }catch(e){
-        res.json(new Result(null, "Algo deu errado!", -1));
+        res.set({ "Content-Type": "audio/mpeg" });
+        res.end();
+        //res.json(new Result(null, "Algo deu errado!", -1));
     }
 }
