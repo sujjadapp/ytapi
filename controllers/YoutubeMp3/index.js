@@ -33,9 +33,9 @@ console.log(media_id)
             throw new Error("oops");
         }
     }catch(e){
-        res.set({ "Content-Type": "audio/mpeg" });
-        res.end();
-        console.log(req.query);
+     //   res.set({ "Content-Type": "audio/mpeg" });
+       // res.end();
+        console.log("Error :"+req.query);
         //res.json(new Result(null, "Algo deu errado!", -1));
     }
 }
