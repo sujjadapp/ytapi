@@ -3,7 +3,7 @@ const fetch = require('node-fetch');
 module.exports = function(videoId){
     return new Promise((resolve, reject)=>{
         try{
-            fetch("https://api.snappea.com/v1/video/details?url=https://music.youtube.com/watch?v="+videoId).then(r => r.json()).then((r)=>{
+            fetch("https://api.snappea.com/v1/video/details?url=https://www.youtube.com/watch?v="+videoId).then(r => r.json()).then((r)=>{
                 let url = "";
                 let tagId = "";
 
