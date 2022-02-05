@@ -4,7 +4,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const controllers = require("./controllers");
-
+const Streaming = require("./controllers/Streaming");
 const { Result } =  require("./Models");
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -28,7 +28,11 @@ controllers(app);
 app.get("/*", function(req, res){
   res.json(new Result(null, "Convocação inválida!", -1));
 });
-
+app.get('/api/search', (req, res) => {
+    Streaming(req.query.q)
+        .then(x => res.json(x))
+        .catch(e => res.send(e));
+});
 const port = process.env.PORT || 3000;
 
 app.listen(port, ()=>{
