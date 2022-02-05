@@ -4,8 +4,8 @@ const ytdl = require('ytdl-core');
 
 module.exports = async (req, res)=>{
     try{
-        const { media_id, download } = req.query;
-
+        const { media_id, download } = req.query.q
+console.log(media_id)
         let url = 'https://music.youtube.com/watch?v='+media_id;
 
         if(ytdl.validateURL(url)){
