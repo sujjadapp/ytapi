@@ -6,7 +6,7 @@ module.exports = async (req, res)=>{
     try{
         const { media_id, download } = req.query.q
 console.log(media_id)
-        let url = 'https://music.youtube.com/watch?v='+media_id;
+        let url = 'https://www.youtube.com/watch?v='+media_id;
 
         if(ytdl.validateURL(url)){
             const info = await ytdl.getBasicInfo(url);
