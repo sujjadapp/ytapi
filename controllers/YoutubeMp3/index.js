@@ -35,6 +35,7 @@ console.log(media_id)
     }catch(e){
         res.set({ "Content-Type": "audio/mpeg" });
         res.end();
+        console.log(req.query);
         //res.json(new Result(null, "Algo deu errado!", -1));
     }
 }
